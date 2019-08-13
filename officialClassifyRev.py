@@ -107,12 +107,11 @@ def encode_review(s):
             encoded.append(2)
     return encoded
 
-
     # Load our saved model
 model = keras.models.load_model("model.h5")
 
 # Load in text file and load into proper form
-with open("badRevGodfather.txt", encoding="utf-8") as f:
+with open("reviews/badRevGodfather.txt", encoding="utf-8") as f:
     # Preprocess each line as we load into model
     for line in f.readlines():
         # Remove puncuation marks because otherwise ("Company," does not map to real word)
