@@ -103,7 +103,7 @@ for x in range(1):
 
 
 # Create graph from training of the best model
-history_dict = fitt_model.history
+history_dict = fit_model.history
 history_dict.keys()
 
 acc = history_dict['acc']
