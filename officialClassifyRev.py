@@ -14,7 +14,7 @@ def decode_review(text):
 max_acc = 0
 best_models = []
 
-for x in range(50):
+for x in range(10):
     # Split into training and testing data
     # Only load in 10,000 most frequent words
     (train_data, train_labels), (test_data,
