@@ -61,6 +61,7 @@ for x in range(1):
 
     # Add layers
     model.add(keras.layers.Embedding(98000, 16))
+    # model.add(keras.layers.Conv1D(128, 5, activation='relu'))
     model.add(keras.layers.GlobalAveragePooling1D())
     model.add(keras.layers.Dense(16, activation="relu"))
     # "Smooshes" every output value between 0 and 1
