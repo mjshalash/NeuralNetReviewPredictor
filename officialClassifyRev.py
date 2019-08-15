@@ -1,6 +1,7 @@
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Load in data
 data = keras.datasets.imdb
@@ -13,8 +14,7 @@ def decode_review(text):
 # Loop to find most accurate model
 max_acc = 0
 best_models = []
-
-for x in range(10):
+for x in range(1):
     # Split into training and testing data
     # Only load in 10,000 most frequent words
     (train_data, train_labels), (test_data,
@@ -87,8 +87,8 @@ for x in range(10):
 
     # Fit Model aka train this bad boi
     # Batch Size = How many movie reviews to load in at one time
-    fitModel = model.fit(x_train, y_train, epochs=40,
-                         batch_size=512, validation_data=(x_val, y_val), verbose=0)
+    fit_model = model.fit(x_train, y_train, epochs=40,
+                         batch_size=512, validation_data=(x_val, y_val), verbose=1)
 
     # Now use test data to see how well ole boy did
     results = model.evaluate(test_data, test_labels)
@@ -99,12 +99,45 @@ for x in range(10):
         print("Max %s: %0.4f%%" %
               (model.metrics_names[1], results[1]))
         max_acc = results[1]
+        top_model = fit_model
 
-    print()
-    print()
-    print("****************New Iteration****************")
 
-print(best_models)
+# Create graph from training of the best model
+history_dict = fitt_model.history
+history_dict.keys()
+
+acc = history_dict['acc']
+val_acc = history_dict['val_acc']
+loss = history_dict['loss']
+val_loss = history_dict['val_loss']
+
+epochs = range(1, len(acc) + 1)
+
+
+# Display Loss over Time
+# "bo" is for "blue dot"
+plt.plot(epochs, loss, 'bo', label='Training loss')
+# b is for "solid blue line"
+plt.plot(epochs, val_loss, 'b', label='Validation loss')
+plt.title('Training and validation loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+
+plt.show()
+
+
+# Display Accuracy over Time
+plt.clf()   # clear figure
+
+plt.plot(epochs, acc, 'bo', label='Training acc')
+plt.plot(epochs, val_acc, 'b', label='Validation acc')
+plt.title('Training and validation accuracy')
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy')
+plt.legend()
+
+plt.show()
 
 # Save model to avoid retraining
 # .h5 is the file extension for a saved model
